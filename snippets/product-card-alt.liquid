@@ -1,0 +1,313 @@
+<product-card-alt class="product-card__alt link-underline color-scheme-7">
+    {% assign cheapest_variant = product.variants | sort: 'price' | first %}
+    <div class="hidden">
+        {% for variant in product.variants %}
+            <input type="hidden" value="{{  variant.id }}" name="{{variant.title}}" data-media="{{ variant.featured_media.id }}"
+                {% for option in variant.options %}
+                    option-{{ forloop.index }}="{{ option.name }}"
+                {% endfor %}
+            >
+        {% endfor %}
+    </div>
+    <div class="product-card__alt-gallery-wrap">
+        <div class="product-card__alt-gallery swiper">
+            <div class="swiper-wrapper">
+                
+                                        
+                {% if product.variants != blank %}
+                    {%- for option in product.options_with_values -%}
+                        {%- capture option_id -%}{{ block.id | default: section.id }}-{{ product.id }}-{{ option.name | handle }}-selector{%- endcapture -%}
+                        {%- liquid
+                            assign sanitized_setting = settings.swatch_option_name | downcase
+                            assign option_name = option.name | downcase
+                        -%}
+                        {%- if sanitized_setting contains option_name -%}
+                            {%- for value in option.values, limit: 4  -%}
+                                {% assign variant = value.variant %}
+                                <div class="swiper-slide" data-media-id="{{ variant.featured_media.id }}">
+                                    <a class="product-card__alt_img-wrap" href="{{ product.url | within: collection }}">
+                                        {% if variant.featured_media != blank %}
+                                            {{ variant.featured_media | media_tag: class: 'product-card__alt_img', image_size: '600x' }}
+                                        {% else %}
+                                            {{ 'product-1' | placeholder_svg_tag: 'product-card__alt_img' }}
+                                        {% endif %}
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="swiper-slide" data-media-id="{{ media.id }}">
+                        <a class="product-card__alt_img-wrap" href="{{ product.url | within: collection }}">
+                        {% if settings.product_placeholder_img != blank %}
+                            {{ settings.product_placeholder_img | image_url: width: 600 | image_tag: class: 'product-card__alt_img' }}
+                        {% else %}
+                            {{ 'product-1' | placeholder_svg_tag: 'product-card__alt_img' }}
+                        {% endif %}
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+            {% comment %} <div class="product__floating-buttons">
+                <a class="quick-action-button product-link quick-action-button--visibility-{{ settings.quickbuy_visibility }} quick-add quick-add-toggle tap-target" href="{{ product.url | within: collection }}" data-variant-id="{{ product.selected_or_first_available_variant.id }}" aria-label="{{ 'actions.add_to_cart' | t }}">
+                    <span class="product__icon-cart">
+                    {% render 'svg-cart', stroke_width: 1.5 %}
+                    </span>
+                    <span class="product__icon-check">
+                    {% render 'svg-cart-check' %}
+                    </span>
+                    {%- if settings.swatch_enabled and settings.prod_thumb_swatches_layout != blank and hide_swatch != true -%}
+                    <div class="product__var_ids">
+                        {%- for variant in product.variants -%}
+                        <input type="hidden" class="product__var_id" data-option-item="{{ variant.title | escape }}" data-available="{{ variant.available }}" value="{{ variant.id }}">
+                        {%- endfor -%}
+                    </div>
+                    {%- endif -%}
+                </a>
+                </div> {% endcomment %}
+        </div>
+        <div class="product-card__alt_floating-buttons">
+            <a class="product-card__alt_floating-action-button" href="{{ product.url }}" data-variant-id="{{ product.variants.first.id }}" aria-label="{{ 'products.product.add_to_cart' | t }}">
+                <span class="product-card__alt_floating-icon-cart">
+                    {% render 'svg-cart' %}
+                </span>
+                <span class="product-card__alt_floating-icon-plus">
+                    {% render 'svg-plus' %}
+                    {% render 'svg-check' %}
+                </span>
+            </a>
+            {% if settings.secondary_option_name != blank %}
+                {%- for option in product.options_with_values -%}
+                    {%- capture option_id -%}{{ block.id | default: section.id }}-{{ product.id }}-{{ option.name | handle }}-selector{%- endcapture -%}
+                    {%- liquid
+                        assign sanitized_setting = settings.secondary_option_name | downcase
+                        assign option_name = option.name | downcase
+                    -%}
+                    {%- if sanitized_setting contains option_name -%}
+                        <div class="product-card__alt_option-selector option-selector--secondary"  data-option-index="{{ forloop.index0 }}" role="radiogroup" aria-labelledby="{{ option_id }}-Label">
+                            <div class="product-card__alt_option-selector_btns">
+                            {%- for value in option.values -%}
+                                <input class="product-card__alt_opt-btn js-option"
+                                            type="radio"
+                                        name="{{ option_id }}"
+                                        id="{{ option_id }}-opt-{{ forloop.index0 }}"
+                                        data-position="{{ option.position }}"
+                                        value="{{ value | escape }}"
+                                        data-media-id="{{ img.id }}"
+                                        {% if option.selected_value == value %}checked{% endif %}
+                                        required>
+                                <label class="product-card__alt_opt-label" data-swatch="{{ value | replace: '"', '' | downcase }}" for="{{ option_id }}-opt-{{ forloop.index0 }}">
+                                    <span class="product-card__alt_opt-label_text">{{ value }}</span>
+                                </label>
+                            {%- endfor -%}
+                            </div>
+                        </div>
+                    {% endif %}
+                {%- endfor -%}
+            {% endif %}
+        </div>
+    </div>
+  <div class="product-card__alt_content">
+        <a class="" href="{{product.url | within: collection }}">
+            <h4 class="product-card__alt_title">
+            <span class="link-underline-text">{{ product.title }}</span>
+            </h4>
+        </a>
+        <div class="product-card__alt_price-wrapper">
+            <div class="product-card__alt_price{% if cheapest_variant.price < cheapest_variant.compare_at_price %} on-sale{% endif %}">
+                <span class="product-card__alt_main-price">{{ cheapest_variant.price | money }}</span>
+                {% if cheapest_variant.price < cheapest_variant.compare_at_price %}
+                    <span class="product-card__alt_compare-price">{{ cheapest_variant.compare_at_price | money }}</span>
+                {% endif %}
+            </div>
+        </div>
+        {%- for option in product.options_with_values -%}
+            {%- capture option_id -%}{{ block.id | default: section.id }}-{{ product.id }}-{{ option.name | handle }}-selector{%- endcapture -%}
+            {%- liquid
+                assign sanitized_setting = settings.swatch_option_name | downcase
+                assign option_name = option.name | downcase
+            -%}
+            {%- if sanitized_setting contains option_name -%}
+                <div class="product-card__alt_option-selector option-selector--swatch"  data-option-index="{{ forloop.index0 }}" role="radiogroup" aria-labelledby="{{ option_id }}-Label">
+                    <div class="product-card__alt_option-selector_btns">
+                        {%- for value in option.values, limit: 4 -%}
+                            {% liquid
+                                assign img = value.variant.featured_media
+                            %}
+                            <input class="product-card__alt_opt-btn js-option"
+                                    type="radio"
+                                    name="{{ option_id }}"
+                                    id="{{ option_id }}-opt-{{ forloop.index0 }}"
+                                    data-position="{{ option.position }}"
+                                    value="{{ value | escape }}"
+                                    data-media-id="{{ img.id }}"
+                                    {% if option.selected_value == value %}checked{% endif %}
+                                    required>
+                            <label class="product-card__alt_opt-label" data-swatch="{{ value | replace: '"', '' | downcase }}" for="{{ option_id }}-opt-{{ forloop.index0 }}">
+                                {% if img != blank %}
+                                    {{ img | image_url: width: 600 | image_tag: class: 'product-card__alt_opt_img' }}
+                                {% else %}
+                                    {{ 'product-1' | placeholder_svg_tag: 'product-card__alt_opt_img placeholder' }}
+                                {% endif %}
+                                <span class="product-card__alt_opt-label_text">{{ value }}</span>
+                            </label>
+                        {%- endfor -%}
+                    </div>
+                </div>
+            {% endif %}
+        {%- endfor -%}
+    </div>
+</product-card-alt>
+
+{% stylesheet %}
+    .product-card__alt-gallery-wrap{
+        background: #F7F7F7;
+        position: relative;
+        z-index: 1; 
+    }
+    .product-card__alt-gallery{
+        mix-blend-mode: darken;
+        height: 436px;
+        @media screen and (max-width: 749px) {
+            height: 359px;
+        }
+    }
+    .product-card__alt_img{
+        height: 100%;
+        object-fit: cover !important;
+        transition: transform 0.3s ease-out;
+    }
+    .product-card__alt_floating-action-button {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        display: flex;
+        padding: 10px;
+        grid-gap: 10px;
+        color: var(--color-primary-button-text);
+        background: var(--color-primary-button-background);
+        z-index: 5;
+        transition: 0.3s ease-out;
+        transition-property: color, background;
+        svg{
+            width: 20px;
+            height: 20px;
+        }
+        &.check  .product-card__alt_floating-icon-plus svg:nth-child(1){
+            display: none;
+        }
+        &:not(.check)  .product-card__alt_floating-icon-plus svg:nth-child(2){
+            display: none;
+        }
+    }
+    .product-card__alt_floating-action-button:hover {
+        color: var(--color-primary-button-hover-text);
+        background: var(--color-primary-button-hover-background);
+    }
+    .product-card__alt_content{
+        display: flex;
+        padding: 24px 18px 28px 18px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+    }
+    .product-card__alt_title{
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 100%;
+        @media screen and (max-width: 749px) {
+            font-size: 18px;
+        }
+    }
+    .product-card__alt_price-wrapper{
+        margin-top: 8px;
+    }
+    .product-card__alt_price{
+        line-height: 100%;
+        display: flex;
+        align-items: center;
+        grid-gap: 12px;
+        color: #0C0C0C;
+        @media screen and (max-width: 749px) {
+            font-size: 12px;
+        }
+    }
+    .product-card__alt_compare-price{
+        text-decoration-line: line-through;
+        opacity: 0.5;
+    }
+    .product-card__alt_option-selector_btns{
+        display: flex;
+        grid-gap: 6px;
+        margin-top: 16px;
+        /* flex-wrap: wrap; */
+    }
+    .product-card__alt_opt-btn,.product-card__alt_opt-label_text{
+        display: none;
+    }
+    .product-card__alt_opt-label{
+        width: 64px;
+        height: 64px;
+        flex-shrink: 0;
+        aspect-ratio: 1/1;
+        display: flex;
+        background: #F7F7F7;
+        border: 1px solid transparent;
+        transition: border-color 0.3s ease-out;
+    }
+    .option-selector--swatch .product-card__alt_opt-btn:checked+.product-card__alt_opt-label{
+        border-color: #0003;
+    }
+    .product-card__alt_opt_img{
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        mix-blend-mode: darken;
+    }
+    .product-card__alt_floating-buttons .option-selector--secondary{
+        .product-card__alt_option-selector_btns{
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: #FFF;
+            z-index: 6;
+            margin: 0;
+            height: 40px;
+            grid-gap: 0;
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.4s ease-out;
+            transition-property: visibility, opacity;
+        }
+        .product-card__alt_opt-label{
+            width: 40px;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            .product-card__alt_opt-label_text{
+                text-underline-offset: 2px;
+                text-decoration: underline;
+                -webkit-text-stroke: 0.5px transparent;
+                text-decoration-color: transparent;
+                transition: 0.2s ease-out;
+                transition-property: text-decoration-color,  -webkit-text-stroke-color;
+            }
+            &:hover .product-card__alt_opt-label_text{
+                -webkit-text-stroke-color: currentColor;
+                text-decoration-color: currentColor;
+            }
+        }
+        .js-option:checked+.product-card__alt_opt-label .product-card__alt_opt-label_text{
+            -webkit-text-stroke-color: currentColor;
+        }
+        .product-card__alt_opt-label_text{
+            display: flex;
+        }
+    }
+    
+    .product-card__alt_floating-buttons:hover .option-selector--secondary .product-card__alt_option-selector_btns{
+        visibility: visible;
+        opacity: 1;
+    }
+{% endstylesheet %}

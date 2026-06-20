@@ -1,0 +1,112 @@
+
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+
+<div
+  class="footer-blocks__content-wrap section section--page-width color-{{ section.settings.color_scheme }}"
+>
+  <div class="footer-blocks__content">
+    {%for block in section.blocks%}
+        <div class="footer-blocks__block" {{ block.shopify_attributes }}>
+            {% if block.settings.img != blank %}
+                {{ block.settings.img | image_url: width: nil | image_tag: class: 'blocks__block_img' }}
+            {% endif %}
+            <div class="footer-blocks__block_content">
+                {% if block.settings.title != blank %}
+                    <h5 class="footer-blocks__block_title">{{ block.settings.title }}</h5>
+                {% endif %}
+                {% if block.settings.desc != blank %}
+                    <div class="footer-blocks__block_desc desc">{{ block.settings.desc }}</div>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% stylesheet %}
+    .footer-blocks__content{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        grid-gap: 30px;
+        padding: 24px 0;
+    }
+    .footer-blocks__block {
+        display: flex;
+        align-items: center;
+        grid-gap: 28px;
+        
+        @media screen and (max-width: 749px) {
+            &:not(:first-child){
+                display:none;
+            }
+        }
+    }
+    .blocks__block_img{
+        width: 50px;
+        height: 50px;
+    }
+    .footer-blocks__block_title {
+        font-weight: 700;
+        margin: 0 0 5px;
+    }
+    .footer-blocks__block_desc{
+        font-size: 12px;
+        line-height: 100%;
+    }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Footer Blocks",
+  "class": "footer-blocks-section",
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "scheme-4",
+      "label": "t:settings.color_scheme"
+    },
+  ],
+  "blocks": [
+    {
+      "type": "block",
+      "name": "Block",
+      "settings": [
+        {
+            "type": "image_picker",
+            "id": "img",
+            "label": "Image",
+        },
+        {
+            "type": "inline_richtext",
+            "id": "title",
+            "label": "Title",
+            "default": "Free shipping"
+        },
+        {
+            "type": "richtext",
+            "id": "desc",
+            "label": "Description",
+            "default": "<p>On orders from €50</p>"
+        },
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer Blocks",
+      "blocks": {
+        "block_1": {
+          "type": "block"
+        }
+      },
+      "block_order": ["block_1"]
+    }
+  ]
+}
+{% endschema %}
