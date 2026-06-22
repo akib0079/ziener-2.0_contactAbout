@@ -38,13 +38,14 @@
   <div class="cr-content">
     <div class="cr-container">
       {% for block in section.blocks %}
-        <div class="cr-block" {{ block.shopify_attributes }}>
-          {% if block.settings.block_title != blank %}
-            <h2 class="cr-block__title">{{ block.settings.block_title }}</h2>
-          {% endif %}
+        {% case block.type %}
+          {% when 'title_block' %}
+            <div class="cr-block cr-block--title" {{ block.shopify_attributes }}>
+              <h2 class="cr-block__title">{{ block.settings.title }}</h2>
+            </div>
 
-          {% if block.settings.image != blank or block.settings.image_url != blank %}
-            <div class="cr-block__image-wrap">
+          {% when 'image_block' %}
+            <div class="cr-block cr-block--image" {{ block.shopify_attributes }}>
               {% assign block_img = block.settings.image_url %}
               {% if block.settings.image != blank %}
                 {% assign img_alt = block.settings.image.alt | default: 'Image' %}
@@ -57,12 +58,12 @@
                 <img src="{{ block_img }}" alt="Image" class="cr-block__img" loading="lazy" style="max-width: {{ block.settings.img_width }}px; max-height: {{ block.settings.img_height }}px;">
               {% endif %}
             </div>
-          {% endif %}
 
-          {% if block.settings.block_text != blank %}
-            <div class="cr-block__text">{{ block.settings.block_text }}</div>
-          {% endif %}
-        </div>
+          {% when 'text_block' %}
+            <div class="cr-block cr-block--text" {{ block.shopify_attributes }}>
+              <div class="cr-block__text">{{ block.settings.text }}</div>
+            </div>
+        {% endcase %}
       {% endfor %}
     </div>
   </div>
@@ -154,10 +155,13 @@
   padding-bottom: 40px;
 }
 .cr-block {
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 }
 .cr-block:last-child {
   margin-bottom: 0;
+}
+.cr-block--title {
+  margin-bottom: 20px;
 }
 .cr-block__title {
   color: #000;
@@ -168,7 +172,16 @@
   line-height: 150%;
   margin: 0 0 30px 0;
 }
-.cr-block__image-wrap {
+.cr-block--image {
+  margin-bottom: 30px;
+}
+.cr-block__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+.cr-block--text {
   margin-bottom: 30px;
 }
 .cr-block__img {
@@ -282,15 +295,21 @@
   ],
   "blocks": [
     {
-      "type": "content_block",
-      "name": "Content Block",
+      "type": "title_block",
+      "name": "Title",
       "settings": [
         {
           "type": "text",
-          "id": "block_title",
+          "id": "title",
           "label": "Title",
           "default": "Environmental responsibility"
-        },
+        }
+      ]
+    },
+    {
+      "type": "image_block",
+      "name": "Image",
+      "settings": [
         {
           "type": "image_picker",
           "id": "image",
@@ -320,10 +339,16 @@
           "unit": "px",
           "label": "Image Max Height",
           "default": 200
-        },
+        }
+      ]
+    },
+    {
+      "type": "text_block",
+      "name": "Content",
+      "settings": [
         {
           "type": "richtext",
-          "id": "block_text",
+          "id": "text",
           "label": "Paragraph Text",
           "default": "<p>Add your content here.</p>"
         }
@@ -334,8 +359,12 @@
     {
       "name": "Corporate Responsibility",
       "blocks": [
-        { "type": "content_block" },
-        { "type": "content_block" }
+        { "type": "title_block" },
+        { "type": "image_block" },
+        { "type": "text_block" },
+        { "type": "title_block" },
+        { "type": "image_block" },
+        { "type": "text_block" }
       ]
     }
   ]

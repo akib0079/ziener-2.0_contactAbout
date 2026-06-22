@@ -3,26 +3,46 @@
     "main": {
       "type": "page-corporate",
       "blocks": {
-        "block_1": {
-          "type": "content_block",
+        "title_1": {
+          "type": "title_block",
           "settings": {
-            "block_title": "Environmental responsibility",
-            "block_text": "<p>Add your content here.</p>",
+            "title": "Environmental responsibility"
+          }
+        },
+        "image_1": {
+          "type": "image_block",
+          "settings": {
             "img_width": 305,
             "img_height": 200
           }
         },
-        "block_2": {
-          "type": "content_block",
+        "text_1": {
+          "type": "text_block",
           "settings": {
-            "block_title": "Environmental responsibility",
-            "block_text": "<p>Add your content here.</p>",
+            "text": "<p>Add your content here.</p>"
+          }
+        },
+        "title_2": {
+          "type": "title_block",
+          "settings": {
+            "title": "Environmental responsibility"
+          }
+        },
+        "image_2": {
+          "type": "image_block",
+          "settings": {
             "img_width": 305,
             "img_height": 200
           }
+        },
+        "text_2": {
+          "type": "text_block",
+          "settings": {
+            "text": "<p>Add your content here.</p>"
+          }
         }
       },
-      "block_order": ["block_1", "block_2"],
+      "block_order": ["title_1", "image_1", "text_1", "title_2", "image_2", "text_2"],
       "settings": {
         "heading": "Corporate responsibility",
         "image_desktop_url": "https://cdn.shopify.com/s/files/1/0999/0701/0937/files/Container-banner_018916f7-48fe-4bd8-a575-9d9e22765287.png?v=1782160050",
