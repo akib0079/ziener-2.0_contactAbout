@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -6,37 +15,50 @@
         "partner_1": {
           "type": "partner",
           "settings": {
-            "image_url": "https://cdn.shopify.com/s/files/1/0999/0701/0937/files/image_20.png?v=1782151307"
+            "image_url": "https://cdn.shopify.com/s/files/1/0999/0701/0937/files/image_20.png?v=1782151307",
+            "logo_width": 305,
+            "logo_height": 200
           }
         },
         "partner_2": {
           "type": "partner",
           "settings": {
-            "image_url": "https://cdn.shopify.com/s/files/1/0999/0701/0937/files/image_20.png?v=1782151307"
+            "image_url": "https://cdn.shopify.com/s/files/1/0999/0701/0937/files/image_20.png?v=1782151307",
+            "logo_width": 305,
+            "logo_height": 200
           }
         },
         "partner_3": {
           "type": "partner",
           "settings": {
-            "image_url": "https://cdn.shopify.com/s/files/1/0999/0701/0937/files/image_20.png?v=1782151307"
+            "image": "shopify://shop_images/image_22.svg",
+            "image_url": "https://cdn.shopify.com/s/files/1/0999/0701/0937/files/image_20.png?v=1782151307",
+            "logo_width": 320,
+            "logo_height": 105
           }
         },
         "partner_4": {
           "type": "partner",
           "settings": {
-            "image_url": "https://cdn.shopify.com/s/files/1/0999/0701/0937/files/image_20.png?v=1782151307"
+            "image_url": "https://cdn.shopify.com/s/files/1/0999/0701/0937/files/image_20.png?v=1782151307",
+            "logo_width": 305,
+            "logo_height": 200
           }
         },
         "partner_5": {
           "type": "partner",
           "settings": {
-            "image_url": "https://cdn.shopify.com/s/files/1/0999/0701/0937/files/image_20.png?v=1782151307"
+            "image_url": "https://cdn.shopify.com/s/files/1/0999/0701/0937/files/image_20.png?v=1782151307",
+            "logo_width": 305,
+            "logo_height": 200
           }
         },
         "partner_6": {
           "type": "partner",
           "settings": {
-            "image_url": "https://cdn.shopify.com/s/files/1/0999/0701/0937/files/image_20.png?v=1782151307"
+            "image_url": "https://cdn.shopify.com/s/files/1/0999/0701/0937/files/image_20.png?v=1782151307",
+            "logo_width": 305,
+            "logo_height": 200
           }
         }
       },
@@ -48,7 +70,14 @@
         "partner_5",
         "partner_6"
       ],
-      "settings": {}
+      "settings": {
+        "heading": "Partners and associations",
+        "image_desktop_url": "https://cdn.shopify.com/s/files/1/0999/0701/0937/files/Container-banner.png?v=1782150950",
+        "image_mobile_url": "https://cdn.shopify.com/s/files/1/0999/0701/0937/files/Containerbanner-mobile.png?v=1782150998",
+        "partners_title": "#MADEBYPROS — United by trust, team spirit, and a powerful community.",
+        "banner_height_desktop": 410,
+        "banner_height_mobile": 290
+      }
     }
   },
   "order": [
