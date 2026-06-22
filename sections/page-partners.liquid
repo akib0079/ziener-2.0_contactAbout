@@ -37,7 +37,12 @@
         <div class="custom-partner-item" {{ block.shopify_attributes }}>
             {% assign partner_img = block.settings.image_url | default: 'https://cdn.shopify.com/s/files/1/0999/0701/0937/files/image_20.png?v=1782151307' %}
             {% if block.settings.image != blank %}
-              <img src="{{ block.settings.image | image_url: width: 400 }}" alt="Partner" class="custom-partner-img" loading="lazy" style="max-width: {{ block.settings.logo_width }}px; max-height: {{ block.settings.logo_height }}px;">
+              {% assign img_alt = block.settings.image.alt | default: 'Partner' %}
+              {% if block.settings.image.src contains '.svg' %}
+                <img src="{{ block.settings.image | image_url }}" alt="{{ img_alt }}" class="custom-partner-img" loading="lazy" style="max-width: {{ block.settings.logo_width }}px; max-height: {{ block.settings.logo_height }}px;">
+              {% else %}
+                <img src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ img_alt }}" class="custom-partner-img" loading="lazy" style="max-width: {{ block.settings.logo_width }}px; max-height: {{ block.settings.logo_height }}px;">
+              {% endif %}
             {% else %}
               <img src="{{ partner_img }}" alt="Partner" class="custom-partner-img" loading="lazy" style="max-width: {{ block.settings.logo_width }}px; max-height: {{ block.settings.logo_height }}px;">
             {% endif %}
