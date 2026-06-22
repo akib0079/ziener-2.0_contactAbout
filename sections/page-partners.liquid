@@ -34,12 +34,12 @@
       
       <div class="custom-partners-grid">
         {% for block in section.blocks %}
-          <div class="custom-partner-item" {{ block.shopify_attributes }}>
+        <div class="custom-partner-item" {{ block.shopify_attributes }}>
             {% assign partner_img = block.settings.image_url | default: 'https://cdn.shopify.com/s/files/1/0999/0701/0937/files/image_20.png?v=1782151307' %}
             {% if block.settings.image != blank %}
-              <img src="{{ block.settings.image | image_url: width: 400 }}" alt="Partner" class="custom-partner-img" loading="lazy">
+              <img src="{{ block.settings.image | image_url: width: 400 }}" alt="Partner" class="custom-partner-img" loading="lazy" style="max-width: {{ block.settings.logo_width }}px; max-height: {{ block.settings.logo_height }}px;">
             {% else %}
-              <img src="{{ partner_img }}" alt="Partner" class="custom-partner-img" loading="lazy">
+              <img src="{{ partner_img }}" alt="Partner" class="custom-partner-img" loading="lazy" style="max-width: {{ block.settings.logo_width }}px; max-height: {{ block.settings.logo_height }}px;">
             {% endif %}
           </div>
         {% endfor %}
@@ -52,17 +52,9 @@
   #shopify-section-{{ section.id }} .custom-partners-banner {
     min-height: {{ section.settings.banner_height_desktop }}px;
   }
-  #shopify-section-{{ section.id }} .custom-partner-img {
-    max-width: {{ section.settings.partner_image_width }}px;
-    max-height: {{ section.settings.partner_image_height }}px;
-  }
   @media screen and (max-width: 990px) {
     #shopify-section-{{ section.id }} .custom-partners-banner {
       min-height: {{ section.settings.banner_height_mobile }}px;
-    }
-    #shopify-section-{{ section.id }} .custom-partner-img {
-      max-width: {{ section.settings.partner_image_width_mobile }}px;
-      max-height: {{ section.settings.partner_image_height_mobile }}px;
     }
   }
 </style>
@@ -264,50 +256,6 @@
       "unit": "px",
       "label": "Mobile Banner Height",
       "default": 290
-    },
-    {
-      "type": "header",
-      "content": "Partner Logo Dimensions"
-    },
-    {
-      "type": "range",
-      "id": "partner_image_width",
-      "min": 50,
-      "max": 500,
-      "step": 5,
-      "unit": "px",
-      "label": "Partner Image Max Width (Desktop)",
-      "default": 305
-    },
-    {
-      "type": "range",
-      "id": "partner_image_height",
-      "min": 20,
-      "max": 300,
-      "step": 5,
-      "unit": "px",
-      "label": "Partner Image Max Height (Desktop)",
-      "default": 200
-    },
-    {
-      "type": "range",
-      "id": "partner_image_width_mobile",
-      "min": 50,
-      "max": 300,
-      "step": 5,
-      "unit": "px",
-      "label": "Partner Image Max Width (Mobile)",
-      "default": 150
-    },
-    {
-      "type": "range",
-      "id": "partner_image_height_mobile",
-      "min": 20,
-      "max": 200,
-      "step": 5,
-      "unit": "px",
-      "label": "Partner Image Max Height (Mobile)",
-      "default": 100
     }
   ],
   "blocks": [
@@ -325,6 +273,26 @@
           "id": "image_url",
           "label": "Fallback Logo URL",
           "default": "https://cdn.shopify.com/s/files/1/0999/0701/0937/files/image_20.png?v=1782151307"
+        },
+        {
+          "type": "range",
+          "id": "logo_width",
+          "min": 50,
+          "max": 500,
+          "step": 5,
+          "unit": "px",
+          "label": "Logo Max Width",
+          "default": 305
+        },
+        {
+          "type": "range",
+          "id": "logo_height",
+          "min": 20,
+          "max": 300,
+          "step": 5,
+          "unit": "px",
+          "label": "Logo Max Height",
+          "default": 200
         }
       ]
     }
