@@ -54,6 +54,7 @@
   }
   #shopify-section-{{ section.id }} .custom-partner-img {
     max-width: {{ section.settings.partner_image_width }}px;
+    max-height: {{ section.settings.partner_image_height }}px;
   }
   @media screen and (max-width: 990px) {
     #shopify-section-{{ section.id }} .custom-partners-banner {
@@ -61,6 +62,7 @@
     }
     #shopify-section-{{ section.id }} .custom-partner-img {
       max-width: {{ section.settings.partner_image_width_mobile }}px;
+      max-height: {{ section.settings.partner_image_height_mobile }}px;
     }
   }
 </style>
@@ -141,9 +143,6 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   width: 100%;
-  gap: 1px;
-  background-color: rgba(241, 241, 241, 1);
-  border: 1px solid rgba(241, 241, 241, 1);
 }
 .custom-partner-item {
   background-color: #FFF;
@@ -152,12 +151,13 @@
   justify-content: center;
   height: 308px;
   padding: 20px;
+  border: 1px solid rgba(241, 241, 241, 1);
 }
 .custom-partner-img {
   width: 100%;
   max-width: 307px;
   height: auto;
-  aspect-ratio: 307/70;
+  max-height: 200px;
   object-fit: contain;
   display: block;
 }
@@ -191,9 +191,10 @@
     grid-template-columns: repeat(2, 1fr);
   }
   .custom-partner-img {
-    width: 149px;
-    height: 34px;
-    aspect-ratio: 149/34;
+    max-width: 149px;
+    max-height: 100px;
+    width: 100%;
+    height: auto;
   }
 }
 </style>
@@ -280,6 +281,16 @@
     },
     {
       "type": "range",
+      "id": "partner_image_height",
+      "min": 20,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "label": "Partner Image Max Height (Desktop)",
+      "default": 200
+    },
+    {
+      "type": "range",
       "id": "partner_image_width_mobile",
       "min": 50,
       "max": 300,
@@ -287,6 +298,16 @@
       "unit": "px",
       "label": "Partner Image Max Width (Mobile)",
       "default": 150
+    },
+    {
+      "type": "range",
+      "id": "partner_image_height_mobile",
+      "min": 20,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "label": "Partner Image Max Height (Mobile)",
+      "default": 100
     }
   ],
   "blocks": [
