@@ -3,10 +3,12 @@
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
 
 <div
-  class="footer-blocks__content-wrap section section--page-width color-{{ section.settings.color_scheme }}"
+  class="footer-blocks__content-wrap section section--page-width color-{{ section.settings.color_scheme }} section-id-{{ section.id }}"
 >
-  <div class="footer-blocks__content">
+  <div class="footer-blocks__content swiper">
+  <div class="swiper-wrapper">
     {%for block in section.blocks%}
+        <div class="swiper-slide" >
         <div class="footer-blocks__block" {{ block.shopify_attributes }}>
             {% if block.settings.img != blank %}
                 {{ block.settings.img | image_url: width: nil | image_tag: class: 'blocks__block_img' }}
@@ -20,21 +22,45 @@
                 {% endif %}
             </div>
         </div>
+        </div>
     {% endfor %}
   </div>
+  </div>
 </div>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    new Swiper('.section-id-{{ section.id }} .footer-blocks__content', {
+      slidesPerView: 1,
+      loop: true,
+      autoplay: {
+          delay: 3500,
+      },
+      breakpoints: {
+          750: {
+            slidesPerView: 3,
+          },
+      },
+    });
+  });
+</script>
 
 {% stylesheet %}
+    .footer-blocks__content-wrap{
+      overflow: hidden;
+    }
     .footer-blocks__content{
         display: flex;
         align-items: center;
         justify-content: space-around;
         grid-gap: 30px;
         padding: 24px 0;
+        width: 100%;
+        overflow: visible;
     }
     .footer-blocks__block {
         display: flex;
         align-items: center;
+        justify-content: center;
         grid-gap: 28px;
         
         @media screen and (max-width: 749px) {

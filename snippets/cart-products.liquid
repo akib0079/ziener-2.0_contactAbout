@@ -387,6 +387,25 @@
     </form>
   {%- endif -%}
 </div>
+{% if settings.cart_cyl_products != blank or request.design_mode %}
+  <div class="cart__cyl" data-skip-subtree-update="true">
+    <div class="cart__cyl_heading">
+    {% if settings.cart_cyl_title != blank  %}
+      <h4 class="cart__cyl_title">{{settings.cart_cyl_title}}</h4>
+    {% endif %}
+    {% render 'slider-nav' %}
+    </div>
+    <div class="cart__cyl_slider swiper">
+      <div class="swiper-wrapper">
+        {% for bt_product in settings.cart_cyl_products %}
+          <div class="swiper-slide">
+            {% render 'product-mini-card', version: 'v2', block: block, bt_product: bt_product %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endif %}
 
 {% stylesheet %}
   .cart-items {
@@ -999,6 +1018,40 @@
       height: 45px;
       transition: 0.3s ease-out;
       transition-property: background-color, color;
+    }
+  }
+  .cart__cyl{
+    margin: 40px -48px 0;
+    overflow: clip;
+    padding: 0 48px;
+    @media screen and (max-width: 749px) {
+      margin: 40px -30px 0;
+      padding: 0 30px;
+    }
+    .product-mini-card{
+      background: #F9F9F9;
+    }
+  }
+  .cart__cyl_heading{
+    margin-bottom: 20px;
+    display: flex;
+    .slider_nav-wrap{
+      margin-left: auto;
+      grid-gap: 30px;
+      width: auto;
+    }
+  }
+  .cart__cyl_title{
+    margin: 0;
+    font-family: var(--font-body--family);
+  }
+  .cart__cyl_slider{
+    overflow: visible;
+    --gap: 10px;
+    width: calc(100% + var(--gap) * 2);
+    margin: 0 calc(-1 * var(--gap) / 2);
+    .product-mini-card{
+      margin: 0 calc(var(--gap) / 2);
     }
   }
 {% endstylesheet %}

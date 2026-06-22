@@ -51,7 +51,7 @@ class ProductCardAlt extends Component {
     }
     initSlider(){
         this.#slider = new Swiper(this.querySelector('.product-card__alt-gallery'), {
-            slidesPerView: 1,
+            slidesPerView: 'auto',
         });
         
         const slideIndex = this.getSelectedSlideIndex();
@@ -171,10 +171,10 @@ class ProductCardAlt extends Component {
         return this.querySelector(selector).value;
     }
     getSelectedSlideIndex(){
-        const mediaId = this.querySelector('.option-selector--swatch .js-option:checked').dataset.mediaId;
-        return [...this.#slider.slides].findIndex(
+        const mediaId = this.querySelector('.option-selector--swatch .js-option:checked')?.dataset.mediaId;
+        return mediaId? [...this.#slider.slides].findIndex(
                 slide => slide.dataset.mediaId == mediaId
-            )
+            ) : -1;
     }
     
 }

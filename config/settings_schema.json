@@ -1749,6 +1749,18 @@
         "visible_if": "{{ settings.cart_type == 'drawer' }}"
       },
       {
+        "type": "inline_richtext",
+        "id": "cart_cyl_title",
+        "label": "Suggested Products Title",
+        "default": "Complete your look",
+        "visible_if": "{{ settings.cart_type == 'drawer' }}"
+      },
+      {
+        "type": "product_list",
+        "id": "cart_cyl_products",
+        "label": "Suggested Products",
+      },
+      {
         "type": "header",
         "content": "t:content.cart_features"
       },

@@ -107,6 +107,8 @@ class CartItemsComponent extends Component {
 
       startViewTransition(() => {
         this.replaceChildren(clone);
+        
+      this.#initCylSliders();
       }, [this.isDrawer ? 'empty-cart-drawer' : 'empty-cart-page']);
 
       return;
@@ -242,23 +244,73 @@ class CartItemsComponent extends Component {
    *
    * @param {DiscountUpdateEvent | CartUpdateEvent | CartAddEvent} event
    */
-  #handleCartUpdate = (event) => {
+  // #handleCartUpdate = (event) => {
+  //   if (event instanceof DiscountUpdateEvent) {
+  //     sectionRenderer.renderSection(this.sectionId, { cache: false });
+  //     return;
+  //   }
+  //   if (event.target === this) return;
+
+  //   const cartItemsHtml = event.detail.data.sections?.[this.sectionId];
+  //   if (cartItemsHtml) {
+  //     morphSection(this.sectionId, cartItemsHtml);
+
+  //     // Update button states for all cart quantity selectors after morph
+  //     this.#updateCartQuantitySelectorButtonStates();
+  //   } else {
+  //     sectionRenderer.renderSection(this.sectionId, { cache: false });
+  //   }
+  //   setTimeout(() => {
+  //     document.querySelectorAll('.cart__cyl').forEach(cyl => {
+  //       console.log(cyl)
+  //         new Swiper(cyl.querySelector('.cart__cyl_slider:not(.swiper-initialized)'), {
+  //         slidesPerView: 1,
+  //         navigation: {
+  //             nextEl: cyl.querySelector('.slider_nav.nav-next'),
+  //             prevEl: cyl.querySelector('.slider_nav.nav-prev'),
+  //         },
+  //       });
+  //     })
+  //   }, 5000)
+    
+  // };
+
+    #handleCartUpdate = async (event) => {
     if (event instanceof DiscountUpdateEvent) {
-      sectionRenderer.renderSection(this.sectionId, { cache: false });
+      await sectionRenderer.renderSection(this.sectionId, { cache: false });
+      this.#initCylSliders();
       return;
     }
     if (event.target === this) return;
 
     const cartItemsHtml = event.detail.data.sections?.[this.sectionId];
     if (cartItemsHtml) {
-      morphSection(this.sectionId, cartItemsHtml);
-
-      // Update button states for all cart quantity selectors after morph
+       try {
+          await morphSection(this.sectionId, cartItemsHtml);
+        } catch (err) {
+          console.error('[CartItems] morph failed:', err);
+        }
       this.#updateCartQuantitySelectorButtonStates();
     } else {
-      sectionRenderer.renderSection(this.sectionId, { cache: false });
+      await sectionRenderer.renderSection(this.sectionId, { cache: false });
     }
+    this.#initCylSliders();
   };
+
+  #initCylSliders() {
+    this.querySelectorAll('.cart__cyl').forEach((cyl) => {
+      const sliderEl = cyl.querySelector('.cart__cyl_slider:not(.swiper-initialized)');
+      if (!sliderEl) return;
+
+      new Swiper(sliderEl, {
+        slidesPerView: 1,
+        navigation: {
+          nextEl: cyl.querySelector('.slider_nav.nav-next'),
+          prevEl: cyl.querySelector('.slider_nav.nav-prev'),
+        },
+      });
+    });
+  }
 
   /**
    * Disables the cart items.

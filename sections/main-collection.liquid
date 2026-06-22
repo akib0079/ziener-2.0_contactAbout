@@ -21,7 +21,7 @@
     );
   }
 {% endjavascript %}
-
+{% content_for 'blocks' %}
 {% comment %} We always render this full-width, as the child blocks have width: page/full settings {% endcomment %}
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
 <results-list
@@ -75,7 +75,73 @@
     {% endpaginate %}
   </div>
 </results-list>
+<script>
+  (function () {
+  const GRID_WRAPPER_SELECTOR = '.main-collection-grid';
+  const GRID_SELECTOR = '.product-grid';
+  const GRID_ITEM_SELECTOR = '.product-grid__item';
 
+  const templates = document.querySelectorAll('.injected-block-template');
+  if (!templates.length) return;
+
+  function injectRepeatedBlocks(grid) {
+    const items = Array.from(grid.querySelectorAll(GRID_ITEM_SELECTOR));
+    if (!items.length) return;
+
+    templates.forEach(template => {
+      const gap = parseInt(template.dataset.offset, 10);
+      const templateId = template.id;
+      const markerAttr = `data-injected-${templateId}`;
+
+      // Skip if already injected into this grid
+      if (grid.querySelector(`[${markerAttr}]`)) return;
+
+      // Only inject once at the gap/offset position
+      const targetItem = items[gap - 1];
+      if (!targetItem) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = template.innerHTML;
+      const block = wrapper.querySelector('.collection__block');
+      block.setAttribute(markerAttr, 'true');
+
+      targetItem.after(block);
+    });
+  }
+
+  function observeGrid(wrapper) {
+    let debounceTimer;
+
+    const observer = new MutationObserver(() => {
+      clearTimeout(debounceTimer);
+
+      debounceTimer = setTimeout(() => {
+        const grid = wrapper.querySelector(GRID_SELECTOR);
+        const gfgrid = wrapper.querySelector('#gf-grid');
+
+        if (grid) {
+          injectRepeatedBlocks(grid);
+        }
+
+      }, 60);
+    });
+
+    observer.observe(wrapper, {
+      childList: true,
+      subtree: true
+    });
+
+    return observer;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const wrapper = document.querySelector(GRID_WRAPPER_SELECTOR);
+    if (!wrapper) return;
+
+    observeGrid(wrapper);
+  });
+})();
+</script>
 {% schema %}
 {
   "name": "t:names.collection_container",
@@ -252,6 +318,11 @@
       "step": 1,
       "unit": "px",
       "default": 8
+    }
+  ],
+  "blocks": [
+    {
+      "type": "_collection-block"
     }
   ],
   "presets": []

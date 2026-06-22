@@ -60,6 +60,13 @@
       "
       data-testid="section-content"
     >
+      {% if section.settings.breadcrumb %}
+        <nav class="breadcrumb" role="navigation" aria-label="breadcrumbs">
+          <a class="link home-link" href="{{ routes.cart_url | split: '/cart' | first | append: '/'  }}">{{ 'accessibility.home' | t }}</a>
+          <span class="separate" aria-hidden="true">/</span>
+          <span>{{ collection.title | split: '|' | first }}</span>
+        </nav>
+      {% endif %}
       {{ children }}
     </div>
   </div>
@@ -93,5 +100,24 @@
 
   .custom-section-content {
     z-index: var(--layer-flat);
+  }
+  main[data-template="collection"] .custom-section-content {
+    .breadcrumbs{
+      margin-bottom: 10px;
+      .separate{
+        margin-inline-start: 3px;
+        margin-inline-end: 3px;
+      }
+    }
+    .text-block{
+      h1{
+        font-weight: 700;
+      }
+      p{
+        --max-width: 750px;
+        font-size: 16px;
+        line-height: 150%;
+      }
+    }
   }
 {% endstylesheet %}

@@ -18,9 +18,9 @@
   @media screen and (min-width: 750px) {
     {% case section.settings.layout_type %}
       {% when 'grid' %}
-        .product-grid--{{ section.id }}:is(.product-grid--grid) {
+        /* .product-grid--{{ section.id }}:is(.product-grid--grid) {
           --product-grid-columns-desktop: repeat(auto-fill, minmax({{ product_card_size }}, 1fr));
-        }
+        } */
 
 
       {% when 'organic' %}
@@ -215,6 +215,10 @@
     align-items: center;
     text-align: center;
     gap: var(--padding-sm);
+    grid-column: 2;
+    @media screen and (min-width: 750px) {
+      grid-column: span 2;
+    }
   }
 
   .main-collection-grid__empty-title {

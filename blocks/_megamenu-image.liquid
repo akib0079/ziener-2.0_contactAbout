@@ -1,11 +1,11 @@
-<a class="header__megeamenu__image" href="{{ block.settings.url }}" data-tab-id="tab-{{ block.id }}" {{ block.shopify_attributes }}> 
+<a class="header__megeamenu__image link-underline" href="{{ block.settings.url }}" data-tab-id="tab-{{ block.id }}" {{ block.shopify_attributes }}> 
     {% if block.settings.img != blank %}
         {{ block.settings.img | image_url: width: nil | image_tag: class: 'header__megeamenu__image_img' }}
     {% else %}
         {{ 'collection-1' | placeholder_svg_tag: 'header__megeamenu__image_img placeholder' }}
     {% endif %}
     <div class="header__megeamenu__image_content">
-        <h4 class="header__megeamenu__image_content_text">{{ block.settings.label }}</h4>
+        <h4 class="header__megeamenu__image_content_text"><span class="link-underline-text">{{ block.settings.label }}</span></h4>
         {% render 'svg-arrow' %}
     </div>
 </a>
@@ -30,6 +30,10 @@
     height: 100%;
     object-fit: cover;
     z-index: -2;
+    transition: transform 0.4s ease-out;
+    .header__megeamenu__image:hover &{
+        transform: scale(1.05);
+    }
 }
 .header__megeamenu__image_img.placeholder {
     background: #E8E8E9;

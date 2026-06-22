@@ -37,8 +37,6 @@
         "full_width_image_1": {
           "type": "full_width_image",
           "settings": {
-            "image": "shopify://shop_images/3rd_section_b0be45f2-523c-4c7c-87ff-828ac971c9d2.png",
-            "image_mobile": "shopify://shop_images/3rd_section-mobile_12912483-3c67-448c-a83e-1278198aa138.png",
             "image_desktop_url": "https://cdn.shopify.com/s/files/1/0999/0701/0937/files/3rd_section.png?v=1781556055",
             "image_mobile_url": "https://cdn.shopify.com/s/files/1/0999/0701/0937/files/3rd_section-mobile.png?v=1781556054",
             "padding_top": 0,

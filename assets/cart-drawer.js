@@ -1,6 +1,6 @@
 import { DialogComponent, DialogOpenEvent, DialogCloseEvent } from '@theme/dialog';
 import { CartAddEvent } from '@theme/events';
-import { isMobileBreakpoint } from '@theme/utilities';
+import { isMobileBreakpoint, onDocumentLoaded } from '@theme/utilities';
 
 /**
  * A custom element that manages a cart drawer.
@@ -28,6 +28,18 @@ class CartDrawerComponent extends DialogComponent {
     if (history.state?.cartDrawerOpen) {
       history.replaceState(null, '');
     }
+    onDocumentLoaded(() => {
+      this.querySelectorAll('.cart__cyl').forEach(cyl => {
+        new Swiper(this.querySelector('.cart__cyl_slider'), {
+          slidesPerView: 1,
+          navigation: {
+              nextEl: cyl.querySelector('.slider_nav.nav-next'),
+              prevEl: cyl.querySelector('.slider_nav.nav-prev'),
+          },
+        });
+      })
+      
+    });
   }
 
   disconnectedCallback() {
