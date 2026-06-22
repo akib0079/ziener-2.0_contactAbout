@@ -49,6 +49,23 @@
 </div>
 
 <style>
+  #shopify-section-{{ section.id }} .custom-partners-banner {
+    min-height: {{ section.settings.banner_height_desktop }}px;
+  }
+  #shopify-section-{{ section.id }} .custom-partner-img {
+    max-width: {{ section.settings.partner_image_width }}px;
+  }
+  @media screen and (max-width: 990px) {
+    #shopify-section-{{ section.id }} .custom-partners-banner {
+      min-height: {{ section.settings.banner_height_mobile }}px;
+    }
+    #shopify-section-{{ section.id }} .custom-partner-img {
+      max-width: {{ section.settings.partner_image_width_mobile }}px;
+    }
+  }
+</style>
+
+<style>
 /* Global */
 .custom-partners-page {
   width: 100%;
@@ -222,6 +239,54 @@
       "id": "partners_title",
       "label": "Section Title",
       "default": "#MADEBYPROS — United by trust, team spirit, and a powerful community."
+    },
+    {
+      "type": "header",
+      "content": "Banner Dimensions"
+    },
+    {
+      "type": "range",
+      "id": "banner_height_desktop",
+      "min": 200,
+      "max": 800,
+      "step": 5,
+      "unit": "px",
+      "label": "Desktop Banner Height",
+      "default": 410
+    },
+    {
+      "type": "range",
+      "id": "banner_height_mobile",
+      "min": 150,
+      "max": 600,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile Banner Height",
+      "default": 290
+    },
+    {
+      "type": "header",
+      "content": "Partner Logo Dimensions"
+    },
+    {
+      "type": "range",
+      "id": "partner_image_width",
+      "min": 50,
+      "max": 500,
+      "step": 5,
+      "unit": "px",
+      "label": "Partner Image Max Width (Desktop)",
+      "default": 305
+    },
+    {
+      "type": "range",
+      "id": "partner_image_width_mobile",
+      "min": 50,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "label": "Partner Image Max Width (Mobile)",
+      "default": 150
     }
   ],
   "blocks": [
