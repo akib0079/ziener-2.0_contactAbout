@@ -109,6 +109,11 @@
   font-weight: 400;
   line-height: 18px;
 }
+.article-custom-back:hover .article-custom-back__text {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
 
 /* Title */
 .article-custom-title {
@@ -117,7 +122,7 @@
   font-size: 48px;
   font-style: normal;
   font-weight: 700;
-  line-height: 110%;
+  line-height: 100%;
   text-transform: uppercase;
   margin: 0 0 20px 0;
 }
@@ -138,53 +143,131 @@
 .article-custom-content {
   color: #000;
   font-family: Arial, sans-serif;
-  font-size: 14px;
+  font-size: 18px;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 700;
   line-height: 150%;
 }
-.article-custom-content h2,
-.article-custom-content h3,
-.article-custom-content h4 {
-  font-family: "Ziener Helvetica", Arial, sans-serif;
-  font-weight: 700;
-  margin: 30px 0 15px 0;
-  text-transform: uppercase;
-}
 .article-custom-content h2 {
-  font-size: 20px;
-  line-height: 140%;
+  font-family: "Ziener Helvetica", Arial, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 120%;
+  text-transform: uppercase;
+  margin: 50px 0 20px 0;
+  color: #000;
 }
 .article-custom-content h3 {
-  font-size: 18px;
+  font-family: "Ziener Helvetica", Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 130%;
+  text-transform: uppercase;
+  margin: 40px 0 16px 0;
+  color: #000;
+}
+.article-custom-content h4 {
+  font-family: "Ziener Helvetica", Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
   line-height: 140%;
+  text-transform: uppercase;
+  margin: 30px 0 12px 0;
+  color: #000;
+}
+.article-custom-content h5 {
+  font-family: "Ziener Helvetica", Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 140%;
+  margin: 25px 0 10px 0;
+  color: #000;
+}
+.article-custom-content h6 {
+  font-family: "Ziener Helvetica", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 150%;
+  margin: 20px 0 10px 0;
+  color: #000;
 }
 .article-custom-content p {
-  margin: 0 0 20px 0;
+  color: #000;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%;
+  margin: 0 0 24px 0;
 }
 .article-custom-content img {
-  max-width: 100%;
+  width: 100%;
   height: auto;
   display: block;
-  margin: 30px 0;
+  margin: 40px 0;
 }
 .article-custom-content a {
   color: #000;
   text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.article-custom-content a:hover {
+  opacity: 0.7;
 }
 .article-custom-content ul,
 .article-custom-content ol {
-  margin: 0 0 20px 0;
-  padding-left: 20px;
+  color: #000;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 150%;
+  margin: 0 0 24px 0;
+  padding-left: 24px;
 }
 .article-custom-content li {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 .article-custom-content blockquote {
   border-left: 3px solid #000;
-  margin: 30px 0;
-  padding: 10px 20px;
+  margin: 40px 0;
+  padding: 16px 24px;
+  font-family: "Ziener Helvetica", Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
   font-style: italic;
+  line-height: 150%;
+  color: #000;
+}
+.article-custom-content blockquote p {
+  margin: 0;
+}
+.article-custom-content strong {
+  font-weight: 700;
+}
+.article-custom-content em {
+  font-style: italic;
+}
+.article-custom-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 30px 0;
+  font-size: 16px;
+}
+.article-custom-content table th,
+.article-custom-content table td {
+  border: 1px solid rgba(241, 241, 241, 1);
+  padding: 12px 16px;
+  text-align: left;
+}
+.article-custom-content table th {
+  font-family: "Ziener Helvetica", Arial, sans-serif;
+  font-weight: 700;
+  background-color: rgba(249, 249, 249, 1);
+}
+.article-custom-content hr {
+  border: none;
+  border-top: 1px solid rgba(241, 241, 241, 1);
+  margin: 40px 0;
 }
 
 /* Mobile Breakpoints */
@@ -202,15 +285,65 @@
     margin-bottom: 20px;
   }
   .article-custom-title {
+    color: #000;
+    font-family: "Ziener Helvetica", Arial, sans-serif;
     font-size: 32px;
-    line-height: 110%;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%;
     margin-bottom: 15px;
   }
   .article-custom-date {
     margin-bottom: 30px;
   }
+  .article-custom-content {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 150%;
+  }
+  .article-custom-content h2 {
+    font-size: 24px;
+    line-height: 120%;
+    margin: 40px 0 16px 0;
+  }
+  .article-custom-content h3 {
+    font-size: 20px;
+    line-height: 130%;
+    margin: 30px 0 12px 0;
+  }
+  .article-custom-content h4 {
+    font-size: 18px;
+    line-height: 140%;
+    margin: 25px 0 10px 0;
+  }
+  .article-custom-content h5 {
+    font-size: 16px;
+    line-height: 140%;
+  }
+  .article-custom-content h6 {
+    font-size: 14px;
+    line-height: 150%;
+  }
+  .article-custom-content p {
+    color: #000;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%;
+    margin: 0 0 20px 0;
+  }
   .article-custom-content img {
-    margin: 20px 0;
+    margin: 30px 0;
+  }
+  .article-custom-content ul,
+  .article-custom-content ol {
+    font-size: 16px;
+  }
+  .article-custom-content blockquote {
+    font-size: 18px;
+    margin: 30px 0;
+    padding: 12px 20px;
   }
 }
 </style>
