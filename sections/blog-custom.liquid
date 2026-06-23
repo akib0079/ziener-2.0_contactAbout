@@ -217,15 +217,11 @@
   text-transform: uppercase;
   margin: 0;
   text-decoration: none;
-  background-image: linear-gradient(currentColor, currentColor);
-  background-position: 0% 100%;
-  background-repeat: no-repeat;
-  background-size: 0% 2px;
-  transition: background-size 0.3s ease;
-  display: inline;
 }
 .blog-custom-card:hover .blog-custom-card__title {
-  background-size: 100% 2px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
 }
 
 /* Excerpt */
@@ -254,10 +250,6 @@
 .blog-custom-card__readmore-arrow {
   width: 16px;
   height: 16px;
-  transition: transform 0.2s ease;
-}
-.blog-custom-card:hover .blog-custom-card__readmore-arrow {
-  transform: translate(2px, 2px);
 }
 
 /* View More Button */
