@@ -52,7 +52,7 @@
                 </span>
 
                 <!-- Title -->
-                <h2 class="blog-custom-card__title">{{ article.title }}</h2>
+                <h2 class="blog-custom-card__title"><span class="blog-custom-card__title-text">{{ article.title }}</span></h2>
 
                 <!-- Excerpt -->
                 {% if article.excerpt != blank %}
@@ -213,10 +213,11 @@
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
-  line-height: 100%;
+  line-height: 120%;
   text-transform: uppercase;
   margin: 0;
-  display: inline;
+}
+.blog-custom-card__title-text {
   background-image: linear-gradient(currentColor, currentColor);
   background-position: 0% 100%;
   background-repeat: no-repeat;
@@ -225,7 +226,7 @@
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
-.blog-custom-card:hover .blog-custom-card__title {
+.blog-custom-card:hover .blog-custom-card__title-text {
   background-size: 100% 1.5px;
 }
 
