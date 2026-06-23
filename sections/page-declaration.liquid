@@ -6,15 +6,15 @@
   <div class="doc-banner">
     <div class="doc-banner__image-wrapper">
       {% if section.settings.image_desktop != blank %}
-        <img src="{{ section.settings.image_desktop | image_url: width: 2500 }}" alt="{{ section.settings.heading | escape }}" class="doc-banner__img doc-desktop-only" loading="lazy">
+        <img src="{{ section.settings.image_desktop | image_url: width: 2500 }}" alt="{{ section.settings.heading | escape }}" class="doc-banner__img doc-desktop-only" loading="eager">
       {% else %}
-        <img src="{{ desktop_img_url }}" alt="{{ section.settings.heading | escape }}" class="doc-banner__img doc-desktop-only" loading="lazy">
+        <img src="{{ desktop_img_url }}" alt="{{ section.settings.heading | escape }}" class="doc-banner__img doc-desktop-only" loading="eager">
       {% endif %}
 
       {% if section.settings.image_mobile != blank %}
-        <img src="{{ section.settings.image_mobile | image_url: width: 800 }}" alt="{{ section.settings.heading | escape }}" class="doc-banner__img doc-mobile-only" loading="lazy">
+        <img src="{{ section.settings.image_mobile | image_url: width: 800 }}" alt="{{ section.settings.heading | escape }}" class="doc-banner__img doc-mobile-only" loading="eager">
       {% else %}
-        <img src="{{ mobile_img_url }}" alt="{{ section.settings.heading | escape }}" class="doc-banner__img doc-mobile-only" loading="lazy">
+        <img src="{{ mobile_img_url }}" alt="{{ section.settings.heading | escape }}" class="doc-banner__img doc-mobile-only" loading="eager">
       {% endif %}
     </div>
     <div class="doc-banner__overlay"></div>
