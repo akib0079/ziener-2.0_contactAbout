@@ -48,6 +48,26 @@
 
 <style>
 /* Global */
+@keyframes customPremiumFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes customPremiumFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .article-custom-page {
   width: 100%;
   overflow-x: hidden;
@@ -77,6 +97,8 @@
 }
 .article-custom-banner__img {
   width: 100%; height: 100%; object-fit: cover; display: block;
+  opacity: 0;
+  animation: customPremiumFadeIn 1s ease-out forwards;
 }
 .article-custom-banner__overlay {
   position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -96,6 +118,8 @@
   gap: 8px;
   text-decoration: none;
   margin-bottom: 30px;
+  opacity: 0;
+  animation: customPremiumFadeUp 0.8s ease-out 0.1s forwards;
 }
 .article-custom-back__icon {
   width: 16px;
@@ -129,6 +153,8 @@
   line-height: 100%;
   text-transform: uppercase;
   margin: 0 0 20px 0;
+  opacity: 0;
+  animation: customPremiumFadeUp 0.8s ease-out 0.2s forwards;
 }
 
 /* Date */
@@ -141,6 +167,8 @@
   font-weight: 400;
   line-height: 150%;
   margin-bottom: 40px;
+  opacity: 0;
+  animation: customPremiumFadeUp 0.8s ease-out 0.3s forwards;
 }
 
 /* Article Content */
@@ -151,6 +179,8 @@
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
+  opacity: 0;
+  animation: customPremiumFadeUp 0.8s ease-out 0.4s forwards;
 }
 .article-custom-content h2 {
   font-family: "Ziener Helvetica", Arial, sans-serif;
