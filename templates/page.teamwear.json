@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -39,8 +48,17 @@
         "tab_4"
       ],
       "settings": {
+        "heading": "Teamwear",
+        "image_desktop": "shopify://shop_images/Containerbanner-teamwear.png",
+        "image_mobile": "shopify://shop_images/Containermobile.png",
+        "image_desktop_url": "",
+        "image_mobile_url": "",
+        "banner_height_desktop": 410,
+        "banner_height_mobile": 290
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
