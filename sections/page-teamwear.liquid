@@ -1,0 +1,328 @@
+<div class="tw-page">
+  <!-- Banner -->
+  {% assign desktop_img_url = section.settings.image_desktop_url | default: 'https://cdn.shopify.com/s/files/1/0999/0701/0937/files/placeholder-banner.png' %}
+  {% assign mobile_img_url = section.settings.image_mobile_url | default: 'https://cdn.shopify.com/s/files/1/0999/0701/0937/files/placeholder-banner-mobile.png' %}
+
+  <div class="tw-banner">
+    <div class="tw-banner__image-wrapper">
+      {% if section.settings.image_desktop != blank %}
+        <img src="{{ section.settings.image_desktop | image_url: width: 2500 }}" alt="{{ section.settings.heading | escape }}" class="tw-banner__img tw-desktop-only" loading="eager">
+      {% else %}
+        <img src="{{ desktop_img_url }}" alt="{{ section.settings.heading | escape }}" class="tw-banner__img tw-desktop-only" loading="eager">
+      {% endif %}
+      
+      {% if section.settings.image_mobile != blank %}
+        <img src="{{ section.settings.image_mobile | image_url: width: 800 }}" alt="{{ section.settings.heading | escape }}" class="tw-banner__img tw-mobile-only" loading="eager">
+      {% else %}
+        <img src="{{ mobile_img_url }}" alt="{{ section.settings.heading | escape }}" class="tw-banner__img tw-mobile-only" loading="eager">
+      {% endif %}
+    </div>
+    <div class="tw-banner__overlay"></div>
+    {% if section.settings.heading != blank %}
+      <div class="tw-banner__content tw-container">
+        <h1 class="tw-banner__heading">{{ section.settings.heading }}</h1>
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- Tabs Section -->
+  <div class="tw-tabs-section">
+    <div class="tw-container">
+      
+      <!-- Tab Headers -->
+      <div class="tw-tabs-nav">
+        {% for block in section.blocks %}
+          <button 
+            class="tw-tab-btn {% if forloop.first %}is-active{% endif %}" 
+            data-target="tab-{{ block.id }}"
+            {{ block.shopify_attributes }}
+          >
+            {{ block.settings.title }}
+          </button>
+        {% endfor %}
+      </div>
+
+      <!-- Tab Content -->
+      <div class="tw-tabs-content-area">
+        {% for block in section.blocks %}
+          <div 
+            class="tw-tab-content {% if forloop.first %}is-active{% endif %}" 
+            id="tab-{{ block.id }}"
+          >
+            {% if block.settings.custom_html != blank %}
+              {{ block.settings.custom_html }}
+            {% else %}
+              <div style="padding: 40px; text-align: center; color: #666;">Content for {{ block.settings.title }} will go here.</div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  #shopify-section-{{ section.id }} .tw-banner {
+    min-height: {{ section.settings.banner_height_desktop }}px;
+  }
+  @media screen and (max-width: 990px) {
+    #shopify-section-{{ section.id }} .tw-banner {
+      min-height: {{ section.settings.banner_height_mobile }}px;
+    }
+  }
+</style>
+
+<style>
+/* Global */
+.tw-page {
+  width: 100%;
+  overflow-x: hidden;
+  color: #000;
+  padding-bottom: 80px;
+}
+.tw-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 8px;
+  width: 100%;
+}
+.tw-desktop-only { display: block !important; }
+.tw-mobile-only { display: none !important; }
+
+@media screen and (max-width: 767px) {
+  .tw-container { padding: 0 20px; }
+  .tw-desktop-only { display: none !important; }
+  .tw-mobile-only { display: block !important; }
+}
+
+/* Banner */
+.tw-banner {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+.tw-banner__image-wrapper {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
+}
+.tw-banner__img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.tw-banner__overlay {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.35) 100%);
+  z-index: 1;
+}
+.tw-banner__content {
+  position: relative; z-index: 2;
+  padding-bottom: 40px;
+}
+.tw-banner__heading {
+  color: #FFF;
+  font-family: "Ziener Helvetica", Arial, sans-serif;
+  font-size: 80px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 100px;
+  margin: 0;
+}
+
+/* Tabs Section */
+.tw-tabs-section {
+  padding-top: 60px;
+}
+.tw-tabs-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+.tw-tab-btn {
+  display: flex;
+  height: 50px;
+  padding: 0 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  flex: 1 0 0;
+  
+  background: rgba(249, 249, 249, 1);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  color: #000;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 98%; /* 13.72px */
+  letter-spacing: -0.28px;
+  text-transform: capitalize;
+}
+.tw-tab-btn:hover,
+.tw-tab-btn.is-active {
+  border: 1px solid rgba(0, 0, 0, 1);
+}
+
+.tw-tab-content {
+  display: none;
+  animation: fadeIn 0.4s ease forwards;
+}
+.tw-tab-content.is-active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile Breakpoints */
+@media screen and (max-width: 990px) {
+  .tw-banner__heading {
+    font-size: 48px;
+    line-height: 100%;
+  }
+  .tw-tabs-nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .tw-tab-btn {
+    width: 100%;
+    flex: none;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const tabBtns = document.querySelectorAll('.tw-tab-btn');
+  const tabContents = document.querySelectorAll('.tw-tab-content');
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Remove active from all
+      tabBtns.forEach(b => b.classList.remove('is-active'));
+      tabContents.forEach(c => c.classList.remove('is-active'));
+
+      // Add active to clicked
+      btn.classList.add('is-active');
+      const targetId = btn.getAttribute('data-target');
+      document.getElementById(targetId).classList.add('is-active');
+    });
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Teamwear Page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Banner Heading",
+      "default": "Teamwear"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Banner Image (Desktop)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Banner Image (Mobile)"
+    },
+    {
+      "type": "text",
+      "id": "image_desktop_url",
+      "label": "Fallback Desktop Image URL"
+    },
+    {
+      "type": "text",
+      "id": "image_mobile_url",
+      "label": "Fallback Mobile Image URL"
+    },
+    {
+      "type": "header",
+      "content": "Banner Dimensions"
+    },
+    {
+      "type": "range",
+      "id": "banner_height_desktop",
+      "min": 200,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "label": "Desktop Banner Height",
+      "default": 410
+    },
+    {
+      "type": "range",
+      "id": "banner_height_mobile",
+      "min": 150,
+      "max": 600,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile Banner Height",
+      "default": 290
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Tab Title",
+          "default": "Tab Name"
+        },
+        {
+          "type": "html",
+          "id": "custom_html",
+          "label": "Tab Content (HTML/Embed)",
+          "info": "Paste the iframe embed code or HTML here."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Teamwear Page",
+      "blocks": [
+        {
+          "type": "tab",
+          "settings": {
+            "title": "Catalog",
+            "custom_html": "<iframe src=\"https://www.pdf-flip.com/viewers/800765/1i91ub.html\" title=\"ZIENER_TW_W2627_A4_FlippingPage_DE (5)\" style=\"width:100%;height:80vh;min-height:400px;border:0;display:block;\" loading=\"lazy\" allowfullscreen></iframe>"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "title": "Color Overviews"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "title": "Impregnation Service"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "title": "Repair Service"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

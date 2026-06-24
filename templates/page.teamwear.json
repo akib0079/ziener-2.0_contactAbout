@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-teamwear",
+      "settings": {
+      }
+    }
+  },
+  "order": ["main"]
+}
