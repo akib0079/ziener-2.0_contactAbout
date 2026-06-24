@@ -1,4 +1,6 @@
-<div class="tw-page">
+import json
+
+liquid_content = """<div class="tw-page">
   <!-- Banner -->
   {% assign desktop_img_url = section.settings.image_desktop_url | default: 'https://cdn.shopify.com/s/files/1/0999/0701/0937/files/placeholder-banner.png' %}
   {% assign mobile_img_url = section.settings.image_mobile_url | default: 'https://cdn.shopify.com/s/files/1/0999/0701/0937/files/placeholder-banner-mobile.png' %}
@@ -297,3 +299,7 @@ document.addEventListener('DOMContentLoaded', function() {
   ]
 }
 {% endschema %}
+"""
+
+with open('sections/page-teamwear.liquid', 'w') as f:
+    f.write(liquid_content)

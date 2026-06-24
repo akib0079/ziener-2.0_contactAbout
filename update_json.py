@@ -1,4 +1,6 @@
-{
+import json
+
+json_content = {
   "sections": {
     "main": {
       "type": "page-teamwear",
@@ -51,10 +53,13 @@
         "tab_3",
         "tab_4"
       ],
-      "settings": {}
+      "settings": {
+      }
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["main"]
 }
+
+with open('templates/page.teamwear.json', 'w') as f:
+    json.dump(json_content, f, indent=2)
+
