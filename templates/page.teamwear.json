@@ -21,7 +21,8 @@
             "co_header": "Color overviews for the winter season 2026/27",
             "imp_title": "Full functionality. Full performance. Like new again - with our waterproofing service.",
             "imp_text": "",
-            "imp_subtitle": "How the service works:"
+            "imp_subtitle": "How the service works:",
+            "rep_text": ""
           }
         },
         "tab_2": {
@@ -33,7 +34,8 @@
             "co_header": "Color overviews for the winter season 2026/27",
             "imp_title": "Full functionality. Full performance. Like new again - with our waterproofing service.",
             "imp_text": "",
-            "imp_subtitle": "How the service works:"
+            "imp_subtitle": "How the service works:",
+            "rep_text": ""
           }
         },
         "img_1": {
@@ -62,7 +64,8 @@
             "co_header": "Color overviews for the winter season 2026/27",
             "imp_title": "Full functionality. Full performance. Like new again - with our waterproofing service.",
             "imp_text": "Regular care renews the functional properties of your ski clothing and extends its service life.\n\nThe outer fabric of our clothing is impregnated when new so that water and dirt simply roll off. Frequent wear, dirt, and sweat impair the breathable and waterproof properties of functional clothing. Therefore, functional clothing should be washed and re-impregnated correctly and regularly. Your functional clothing is professionally washed and 100% PFAS-free impregnated by our partner MeyerundKuhl, making it weatherproof again.",
-            "imp_subtitle": "How the service works:"
+            "imp_subtitle": "How the service works:",
+            "rep_text": ""
           }
         },
         "step_1": {
@@ -107,6 +110,9 @@
             "tab_content_type": "repair_service",
             "custom_html": "",
             "co_header": "Color overviews for the winter season 2026/27",
+            "imp_title": "Full functionality. Full performance. Like new again - with our waterproofing service.",
+            "imp_text": "",
+            "imp_subtitle": "How the service works:",
             "rep_text": "We want you to enjoy your favorite items for a long time. That's why we offer the TEAMWEAR REPAIR SERVICE.\n\nIf the product should break without your intervention, we will repair it for you free of charge.\nIf it is your own fault, we can also repair it for you, but at your expense.\n\nIt is very important to us that you have something from our products for a long time."
           }
         }
@@ -125,6 +131,8 @@
       ],
       "settings": {
         "heading": "Teamwear",
+        "image_desktop": "shopify://shop_images/Containerbanner-teamwear.png",
+        "image_mobile": "shopify://shop_images/Containermobile.png",
         "image_desktop_url": "",
         "image_mobile_url": "",
         "banner_height_desktop": 410,
