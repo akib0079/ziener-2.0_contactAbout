@@ -85,6 +85,7 @@
         "step_3": {
           "type": "service_step",
           "settings": {
+            "icon_img": "shopify://shop_images/thumb-up.svg",
             "icon_url": "https://cdn.shopify.com/s/files/1/0999/0701/0937/files/thumbs-up.svg",
             "title": "Your product will be impregnated",
             "text": "Your clothing will be professionally washed by our partner and sustainably impregnated without PFAS."
