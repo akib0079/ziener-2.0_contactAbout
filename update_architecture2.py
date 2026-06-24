@@ -1,4 +1,7 @@
-<div class="tw-page">
+import json
+import re
+
+liquid_content = """<div class="tw-page">
   <!-- Banner -->
   {% assign desktop_img_url = section.settings.image_desktop_url | default: 'https://cdn.shopify.com/s/files/1/0999/0701/0937/files/placeholder-banner.png' %}
   {% assign mobile_img_url = section.settings.image_mobile_url | default: 'https://cdn.shopify.com/s/files/1/0999/0701/0937/files/placeholder-banner-mobile.png' %}
@@ -307,3 +310,71 @@ document.addEventListener('DOMContentLoaded', function() {
   ]
 }
 {% endschema %}
+"""
+
+with open('sections/page-teamwear.liquid', 'w') as f:
+    f.write(liquid_content)
+
+json_content = {
+  "sections": {
+    "main": {
+      "type": "page-teamwear",
+      "blocks": {
+        "tab_1": {
+          "type": "tab",
+          "settings": {
+            "title": "Catalog",
+            "tab_content_type": "custom_html",
+            "custom_html": "<iframe src=\"https://www.pdf-flip.com/viewers/800765/1i91ub.html\" title=\"ZIENER_TW_W2627_A4_FlippingPage_DE (5)\" style=\"width:100%;height:60vh;min-height:400px;border:0;display:block;\" loading=\"lazy\" allowfullscreen></iframe>"
+          }
+        },
+        "tab_2": {
+          "type": "tab",
+          "settings": {
+            "title": "Color Overviews",
+            "tab_content_type": "color_overviews",
+            "co_header": "Color overviews for the winter season 2026/27"
+          }
+        },
+        "img_1": {
+          "type": "color_image",
+          "settings": {
+            "title": "Trivor / Tewes",
+            "default_img": "https://cdn.shopify.com/s/files/1/0999/0701/0937/files/ZIENER_TW_W2627_Farbuebersicht_Kollektion_Trivor_Tewes_A4_Neu.jpg?v=1782321448",
+            "link": "https://ziener.com/images/pdf/2025/ZIENER_TW_W2627_Farbuebersicht_Kollektion_Trivor_Tewes_A4.pdf"
+          }
+        },
+        "tab_3": {
+          "type": "tab",
+          "settings": {
+            "title": "Impregnation Service",
+            "tab_content_type": "custom_html",
+            "custom_html": ""
+          }
+        },
+        "tab_4": {
+          "type": "tab",
+          "settings": {
+            "title": "Repair Service",
+            "tab_content_type": "custom_html",
+            "custom_html": ""
+          }
+        }
+      },
+      "block_order": [
+        "tab_1",
+        "tab_2",
+        "img_1",
+        "tab_3",
+        "tab_4"
+      ],
+      "settings": {
+      }
+    }
+  },
+  "order": ["main"]
+}
+
+with open('templates/page.teamwear.json', 'w') as f:
+    json.dump(json_content, f, indent=2)
+
