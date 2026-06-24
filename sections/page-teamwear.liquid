@@ -49,10 +49,49 @@
             class="tw-tab-content {% if forloop.first %}is-active{% endif %}" 
             id="tab-{{ block.id }}"
           >
-            {% if block.settings.custom_html != blank %}
-              {{ block.settings.custom_html }}
+            {% if block.settings.tab_content_type == 'color_overviews' %}
+              {% if block.settings.co_header != blank %}
+                <h2 class="tw-co-header">{{ block.settings.co_header }}</h2>
+              {% endif %}
+              
+              <div class="tw-co-list">
+                {% for i in (1..10) %}
+                  {% capture title_key %}co_title_{{ i }}{% endcapture %}
+                  {% capture image_key %}co_image_{{ i }}{% endcapture %}
+                  {% capture default_img_key %}co_default_img_{{ i }}{% endcapture %}
+                  {% capture link_key %}co_link_{{ i }}{% endcapture %}
+
+                  {% assign img_title = block.settings[title_key] %}
+                  {% assign img_obj = block.settings[image_key] %}
+                  {% assign default_img = block.settings[default_img_key] %}
+                  {% assign link_url = block.settings[link_key] %}
+
+                  {% if img_title != blank or img_obj != blank or default_img != blank %}
+                    <div class="tw-co-item">
+                      {% if img_title != blank %}
+                        <h3 class="tw-co-title">{{ img_title }}</h3>
+                      {% endif %}
+                      
+                      {% if link_url != blank %}<a href="{{ link_url }}" target="_blank" class="tw-co-link">{% endif %}
+                      
+                      {% if img_obj != blank %}
+                        <img src="{{ img_obj | image_url: width: 1400 }}" alt="{{ img_title | escape }}" loading="lazy" class="tw-co-img">
+                      {% elsif default_img != blank %}
+                        <img src="{{ default_img }}" alt="{{ img_title | escape }}" loading="lazy" class="tw-co-img">
+                      {% endif %}
+
+                      {% if link_url != blank %}</a>{% endif %}
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+
             {% else %}
-              <div style="padding: 40px; text-align: center; color: #666;">Content for {{ block.settings.title }} will go here.</div>
+              {% if block.settings.custom_html != blank %}
+                {{ block.settings.custom_html }}
+              {% else %}
+                <div style="padding: 40px; text-align: center; color: #666;">Content for {{ block.settings.title }} will go here.</div>
+              {% endif %}
             {% endif %}
           </div>
         {% endfor %}
@@ -182,6 +221,56 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+
+/* Color Overviews */
+.tw-co-header {
+  color: #000;
+  font-family: "Ziener Helvetica", Arial, sans-serif;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 48px; /* 150% */
+  margin: 0 0 60px 0;
+}
+.tw-co-list {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+.tw-co-item {
+  width: 100%;
+}
+.tw-co-title {
+  color: #000;
+  text-align: left;
+  font-family: "Ziener Helvetica", Arial, sans-serif;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 33px */
+  margin: 0 0 30px 0;
+}
+.tw-co-link {
+  display: block;
+  text-decoration: none;
+}
+.tw-co-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media screen and (max-width: 990px) {
+  .tw-co-header {
+    font-size: 28px;
+    line-height: 120%; /* 33.6px */
+    margin-bottom: 40px;
+  }
+  .tw-co-list {
+    gap: 60px;
+  }
+}
+
 /* Mobile Breakpoints */
 @media screen and (max-width: 990px) {
   .tw-banner__heading {
@@ -291,6 +380,268 @@ document.addEventListener('DOMContentLoaded', function() {
           "id": "custom_html",
           "label": "Tab Content (HTML/Embed)",
           "info": "Paste the iframe embed code or HTML here."
+        },
+        {
+          "type": "select",
+          "id": "tab_content_type",
+          "label": "Tab Content Type",
+          "options": [
+            {
+              "value": "custom_html",
+              "label": "Custom HTML / Embed"
+            },
+            {
+              "value": "color_overviews",
+              "label": "Color Overviews (Images)"
+            }
+          ],
+          "default": "custom_html"
+        },
+        {
+          "type": "text",
+          "id": "co_header",
+          "label": "Color Overviews Header",
+          "default": "Color overviews for the winter season 2026/27"
+        },
+        {
+          "type": "header",
+          "content": "Image Item 1"
+        },
+        {
+          "type": "text",
+          "id": "co_title_1",
+          "label": "Title 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "co_image_1",
+          "label": "Image 1"
+        },
+        {
+          "type": "text",
+          "id": "co_default_img_1",
+          "label": "Fallback Image URL 1"
+        },
+        {
+          "type": "url",
+          "id": "co_link_1",
+          "label": "Link 1"
+        },
+        {
+          "type": "header",
+          "content": "Image Item 2"
+        },
+        {
+          "type": "text",
+          "id": "co_title_2",
+          "label": "Title 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "co_image_2",
+          "label": "Image 2"
+        },
+        {
+          "type": "text",
+          "id": "co_default_img_2",
+          "label": "Fallback Image URL 2"
+        },
+        {
+          "type": "url",
+          "id": "co_link_2",
+          "label": "Link 2"
+        },
+        {
+          "type": "header",
+          "content": "Image Item 3"
+        },
+        {
+          "type": "text",
+          "id": "co_title_3",
+          "label": "Title 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "co_image_3",
+          "label": "Image 3"
+        },
+        {
+          "type": "text",
+          "id": "co_default_img_3",
+          "label": "Fallback Image URL 3"
+        },
+        {
+          "type": "url",
+          "id": "co_link_3",
+          "label": "Link 3"
+        },
+        {
+          "type": "header",
+          "content": "Image Item 4"
+        },
+        {
+          "type": "text",
+          "id": "co_title_4",
+          "label": "Title 4"
+        },
+        {
+          "type": "image_picker",
+          "id": "co_image_4",
+          "label": "Image 4"
+        },
+        {
+          "type": "text",
+          "id": "co_default_img_4",
+          "label": "Fallback Image URL 4"
+        },
+        {
+          "type": "url",
+          "id": "co_link_4",
+          "label": "Link 4"
+        },
+        {
+          "type": "header",
+          "content": "Image Item 5"
+        },
+        {
+          "type": "text",
+          "id": "co_title_5",
+          "label": "Title 5"
+        },
+        {
+          "type": "image_picker",
+          "id": "co_image_5",
+          "label": "Image 5"
+        },
+        {
+          "type": "text",
+          "id": "co_default_img_5",
+          "label": "Fallback Image URL 5"
+        },
+        {
+          "type": "url",
+          "id": "co_link_5",
+          "label": "Link 5"
+        },
+        {
+          "type": "header",
+          "content": "Image Item 6"
+        },
+        {
+          "type": "text",
+          "id": "co_title_6",
+          "label": "Title 6"
+        },
+        {
+          "type": "image_picker",
+          "id": "co_image_6",
+          "label": "Image 6"
+        },
+        {
+          "type": "text",
+          "id": "co_default_img_6",
+          "label": "Fallback Image URL 6"
+        },
+        {
+          "type": "url",
+          "id": "co_link_6",
+          "label": "Link 6"
+        },
+        {
+          "type": "header",
+          "content": "Image Item 7"
+        },
+        {
+          "type": "text",
+          "id": "co_title_7",
+          "label": "Title 7"
+        },
+        {
+          "type": "image_picker",
+          "id": "co_image_7",
+          "label": "Image 7"
+        },
+        {
+          "type": "text",
+          "id": "co_default_img_7",
+          "label": "Fallback Image URL 7"
+        },
+        {
+          "type": "url",
+          "id": "co_link_7",
+          "label": "Link 7"
+        },
+        {
+          "type": "header",
+          "content": "Image Item 8"
+        },
+        {
+          "type": "text",
+          "id": "co_title_8",
+          "label": "Title 8"
+        },
+        {
+          "type": "image_picker",
+          "id": "co_image_8",
+          "label": "Image 8"
+        },
+        {
+          "type": "text",
+          "id": "co_default_img_8",
+          "label": "Fallback Image URL 8"
+        },
+        {
+          "type": "url",
+          "id": "co_link_8",
+          "label": "Link 8"
+        },
+        {
+          "type": "header",
+          "content": "Image Item 9"
+        },
+        {
+          "type": "text",
+          "id": "co_title_9",
+          "label": "Title 9"
+        },
+        {
+          "type": "image_picker",
+          "id": "co_image_9",
+          "label": "Image 9"
+        },
+        {
+          "type": "text",
+          "id": "co_default_img_9",
+          "label": "Fallback Image URL 9"
+        },
+        {
+          "type": "url",
+          "id": "co_link_9",
+          "label": "Link 9"
+        },
+        {
+          "type": "header",
+          "content": "Image Item 10"
+        },
+        {
+          "type": "text",
+          "id": "co_title_10",
+          "label": "Title 10"
+        },
+        {
+          "type": "image_picker",
+          "id": "co_image_10",
+          "label": "Image 10"
+        },
+        {
+          "type": "text",
+          "id": "co_default_img_10",
+          "label": "Fallback Image URL 10"
+        },
+        {
+          "type": "url",
+          "id": "co_link_10",
+          "label": "Link 10"
         }
       ]
     }
