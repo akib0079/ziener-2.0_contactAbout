@@ -1,4 +1,7 @@
-<div class="tw-page">
+import json
+
+# 1. Generate the completely new page-teamwear.liquid content
+liquid_content = """<div class="tw-page">
   <!-- Banner -->
   {% assign desktop_img_url = section.settings.image_desktop_url | default: 'https://cdn.shopify.com/s/files/1/0999/0701/0937/files/placeholder-banner.png' %}
   {% assign mobile_img_url = section.settings.image_mobile_url | default: 'https://cdn.shopify.com/s/files/1/0999/0701/0937/files/placeholder-banner-mobile.png' %}
@@ -498,3 +501,48 @@ document.addEventListener('DOMContentLoaded', function() {
   ]
 }
 {% endschema %}
+"""
+
+with open('sections/page-teamwear.liquid', 'w') as f:
+    f.write(liquid_content)
+
+# 2. Generate the new templates/page.teamwear.json
+json_content = {
+  "sections": {
+    "main": {
+      "type": "page-teamwear",
+      "blocks": {
+        "catalog_embed": {
+          "type": "tab_1_html",
+          "settings": {
+            "html": "<iframe src=\"https://www.pdf-flip.com/viewers/800765/1i91ub.html\" title=\"ZIENER_TW_W2627_A4_FlippingPage_DE (5)\" style=\"width:100%;height:80vh;min-height:400px;border:0;display:block;\" loading=\"lazy\" allowfullscreen></iframe>"
+          }
+        },
+        "color_img_1": {
+          "type": "tab_2_image",
+          "settings": {
+            "title": "Trivor / Tewes",
+            "default_img": "https://cdn.shopify.com/s/files/1/0999/0701/0937/files/ZIENER_TW_W2627_Farbuebersicht_Kollektion_Trivor_Tewes_A4_Neu.jpg?v=1782321448",
+            "link": "https://ziener.com/images/pdf/2025/ZIENER_TW_W2627_Farbuebersicht_Kollektion_Trivor_Tewes_A4.pdf"
+          }
+        }
+      },
+      "block_order": [
+        "catalog_embed",
+        "color_img_1"
+      ],
+      "settings": {
+        "tab_1_name": "Catalog",
+        "tab_2_name": "Color Overviews",
+        "tab_3_name": "Impregnation Service",
+        "tab_4_name": "Repair Service",
+        "tab_2_heading": "Color overviews for the winter season 2026/27"
+      }
+    }
+  },
+  "order": ["main"]
+}
+
+with open('templates/page.teamwear.json', 'w') as f:
+    json.dump(json_content, f, indent=2)
+
