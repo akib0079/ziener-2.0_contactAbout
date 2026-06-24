@@ -111,6 +111,13 @@
                   </div>
                 </div>
               
+              {% elsif block.settings.tab_content_type == 'repair_service' %}
+                <div class="tw-rep-container">
+                  {% if block.settings.rep_text != blank %}
+                    <div class="tw-rep-text">{{ block.settings.rep_text | newline_to_br }}</div>
+                  {% endif %}
+                </div>
+              
               {% else %}
                 {% if block.settings.custom_html != blank %}
                   {{ block.settings.custom_html }}
@@ -278,6 +285,21 @@
   }
 }
 
+
+/* Repair Service */
+.tw-rep-container {
+  max-width: 100%;
+}
+.tw-rep-text {
+  color: #000;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 21px */
+  margin: 0;
+}
+
 /* Mobile Breakpoints */
 @media screen and (max-width: 990px) {
   .tw-banner__heading { font-size: 48px; line-height: 100%; }
@@ -388,6 +410,10 @@ document.addEventListener('DOMContentLoaded', function() {
             {
               "value": "impregnation_service",
               "label": "Impregnation Service Layout"
+            },
+            {
+              "value": "repair_service",
+              "label": "Repair Service Layout"
             }
           ],
           "default": "custom_html"
@@ -421,6 +447,12 @@ document.addEventListener('DOMContentLoaded', function() {
           "id": "imp_subtitle",
           "label": "Impregnation Subtitle",
           "default": "How the service works:"
+        },
+        {
+          "type": "textarea",
+          "id": "rep_text",
+          "label": "Repair Text",
+          "info": "Only used if 'Repair Service Layout' is selected above."
         }
       ]
     },

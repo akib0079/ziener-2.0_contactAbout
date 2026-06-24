@@ -1,4 +1,14 @@
-/*
+import json
+import re
+
+with open('templates/page.teamwear.json', 'r') as f:
+    raw = f.read()
+
+# Strip merge conflict markers manually or just use string manipulation
+# Actually, it's easier to just take the json that was fully resolved.
+# I'll build it manually here.
+
+json_str = """/*
  * ------------------------------------------------------------
  * IMPORTANT: The contents of this file are auto-generated.
  *
@@ -17,7 +27,7 @@
           "settings": {
             "title": "Catalog",
             "tab_content_type": "custom_html",
-            "custom_html": "<iframe src=\"https://www.pdf-flip.com/viewers/800765/1i91ub.html\" title=\"ZIENER_TW_W2627_A4_FlippingPage_DE (5)\" style=\"width:100%;height:60vh;min-height:400px;border:0;display:block;\" loading=\"lazy\" allowfullscreen></iframe>",
+            "custom_html": "<iframe src=\\"https://www.pdf-flip.com/viewers/800765/1i91ub.html\\" title=\\"ZIENER_TW_W2627_A4_FlippingPage_DE (5)\\" style=\\"width:100%;height:60vh;min-height:400px;border:0;display:block;\\" loading=\\"lazy\\" allowfullscreen></iframe>",
             "co_header": "Color overviews for the winter season 2026/27",
             "imp_title": "Full functionality. Full performance. Like new again - with our waterproofing service.",
             "imp_text": "",
@@ -61,7 +71,7 @@
             "custom_html": "",
             "co_header": "Color overviews for the winter season 2026/27",
             "imp_title": "Full functionality. Full performance. Like new again - with our waterproofing service.",
-            "imp_text": "Regular care renews the functional properties of your ski clothing and extends its service life.\n\nThe outer fabric of our clothing is impregnated when new so that water and dirt simply roll off. Frequent wear, dirt, and sweat impair the breathable and waterproof properties of functional clothing. Therefore, functional clothing should be washed and re-impregnated correctly and regularly. Your functional clothing is professionally washed and 100% PFAS-free impregnated by our partner MeyerundKuhl, making it weatherproof again.",
+            "imp_text": "Regular care renews the functional properties of your ski clothing and extends its service life.\\n\\nThe outer fabric of our clothing is impregnated when new so that water and dirt simply roll off. Frequent wear, dirt, and sweat impair the breathable and waterproof properties of functional clothing. Therefore, functional clothing should be washed and re-impregnated correctly and regularly. Your functional clothing is professionally washed and 100% PFAS-free impregnated by our partner MeyerundKuhl, making it weatherproof again.",
             "imp_subtitle": "How the service works:"
           }
         },
@@ -107,7 +117,7 @@
             "tab_content_type": "repair_service",
             "custom_html": "",
             "co_header": "Color overviews for the winter season 2026/27",
-            "rep_text": "We want you to enjoy your favorite items for a long time. That's why we offer the TEAMWEAR REPAIR SERVICE.\n\nIf the product should break without your intervention, we will repair it for you free of charge.\nIf it is your own fault, we can also repair it for you, but at your expense.\n\nIt is very important to us that you have something from our products for a long time."
+            "rep_text": "We want you to enjoy your favorite items for a long time. That's why we offer the TEAMWEAR REPAIR SERVICE.\\n\\nIf the product should break without your intervention, we will repair it for you free of charge.\\nIf it is your own fault, we can also repair it for you, but at your expense.\\n\\nIt is very important to us that you have something from our products for a long time."
           }
         }
       },
@@ -136,3 +146,6 @@
     "main"
   ]
 }
+"""
+with open('templates/page.teamwear.json', 'w') as f:
+    f.write(json_str)
