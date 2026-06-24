@@ -77,6 +77,39 @@
                     {% endif %}
                   {% endfor %}
                 </div>
+                
+              {% elsif block.settings.tab_content_type == 'impregnation_service' %}
+                <div class="tw-imp-container">
+                  {% if block.settings.imp_title != blank %}
+                    <h2 class="tw-imp-title">{{ block.settings.imp_title }}</h2>
+                  {% endif %}
+                  {% if block.settings.imp_text != blank %}
+                    <div class="tw-imp-text">{{ block.settings.imp_text }}</div>
+                  {% endif %}
+                  {% if block.settings.imp_subtitle != blank %}
+                    <h3 class="tw-imp-subtitle">{{ block.settings.imp_subtitle }}</h3>
+                  {% endif %}
+                  
+                  <div class="tw-imp-grid">
+                    {% for step_block in section.blocks %}
+                      {% if step_block.type == 'service_step' %}
+                        <div class="tw-imp-step" {{ step_block.shopify_attributes }}>
+                          <div class="tw-imp-step-icon">
+                            {% if step_block.settings.icon_img != blank %}
+                              <img src="{{ step_block.settings.icon_img | image_url: width: 100 }}" alt="{{ step_block.settings.title | escape }}" loading="lazy">
+                            {% elsif step_block.settings.icon_url != blank %}
+                              <img src="{{ step_block.settings.icon_url }}" alt="{{ step_block.settings.title | escape }}" loading="lazy">
+                            {% endif %}
+                          </div>
+                          <div class="tw-imp-step-content">
+                            <h4 class="tw-imp-step-title">{{ step_block.settings.title }}</h4>
+                            <div class="tw-imp-step-text">{{ step_block.settings.text }}</div>
+                          </div>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
               
               {% else %}
                 {% if block.settings.custom_html != blank %}
@@ -143,6 +176,101 @@
 .tw-co-title { color: #000; text-align: left; font-family: "Ziener Helvetica", Arial, sans-serif; font-size: 22px; font-style: normal; font-weight: 700; line-height: 150%; margin: 0 0 30px 0; }
 .tw-co-link { display: block; text-decoration: none; }
 .tw-co-img { width: 100%; height: auto; display: block; }
+
+
+/* Impregnation Service */
+.tw-imp-container {
+  max-width: 100%;
+}
+.tw-imp-title {
+  color: #000;
+  font-family: "Ziener Helvetica", Arial, sans-serif;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%; /* 38.4px */
+  margin: 0 0 24px 0;
+  max-width: 800px;
+}
+.tw-imp-text {
+  color: #000;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 21px */
+  margin: 0 0 40px 0;
+}
+.tw-imp-subtitle {
+  color: #000;
+  font-family: "Ziener Helvetica", Arial, sans-serif;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 33px */
+  margin: 0 0 24px 0;
+}
+.tw-imp-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.tw-imp-step {
+  display: flex;
+  height: 332px;
+  padding: 30px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex: 1 0 0;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  background: #FFF;
+}
+.tw-imp-step-icon {
+  width: 40px;
+  height: 40px;
+}
+.tw-imp-step-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.tw-imp-step-content {
+  margin-top: auto;
+}
+.tw-imp-step-title {
+  color: #000;
+  font-family: "Ziener Helvetica", Arial, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%; /* 24px */
+  margin: 0 0 12px 0;
+}
+.tw-imp-step-text {
+  color: #202020;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 21px */
+  margin: 0;
+}
+
+@media screen and (max-width: 990px) {
+  .tw-imp-title {
+    font-size: 28px;
+    line-height: 120%; /* 33.6px */
+  }
+  .tw-imp-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .tw-imp-step {
+    height: auto;
+    min-height: 250px;
+  }
+}
 
 /* Mobile Breakpoints */
 @media screen and (max-width: 990px) {
@@ -243,8 +371,18 @@ document.addEventListener('DOMContentLoaded', function() {
           "id": "tab_content_type",
           "label": "Tab Content Type",
           "options": [
-            { "value": "custom_html", "label": "HTML Embed (PDF, etc)" },
-            { "value": "color_overviews", "label": "Color Overviews Layout" }
+            {
+              "value": "custom_html",
+              "label": "HTML Embed (PDF, etc)"
+            },
+            {
+              "value": "color_overviews",
+              "label": "Color Overviews Layout"
+            },
+            {
+              "value": "impregnation_service",
+              "label": "Impregnation Service Layout"
+            }
           ],
           "default": "custom_html"
         },
@@ -260,6 +398,23 @@ document.addEventListener('DOMContentLoaded', function() {
           "label": "Color Overviews Header",
           "default": "Color overviews for the winter season 2026/27",
           "info": "Only used if 'Color Overviews Layout' is selected above."
+        },
+        {
+          "type": "text",
+          "id": "imp_title",
+          "label": "Impregnation Title",
+          "default": "Full functionality. Full performance. Like new again - with our waterproofing service."
+        },
+        {
+          "type": "textarea",
+          "id": "imp_text",
+          "label": "Impregnation Text"
+        },
+        {
+          "type": "text",
+          "id": "imp_subtitle",
+          "label": "Impregnation Subtitle",
+          "default": "How the service works:"
         }
       ]
     },
@@ -286,6 +441,34 @@ document.addEventListener('DOMContentLoaded', function() {
           "type": "url",
           "id": "link",
           "label": "Link"
+        }
+      ]
+    },
+    {
+      "type": "service_step",
+      "name": "Service Step (Icon)",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_img",
+          "label": "Icon Image"
+        },
+        {
+          "type": "text",
+          "id": "icon_url",
+          "label": "Icon Fallback URL (SVG)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Step Title"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Description of the service step goes here."
         }
       ]
     }
