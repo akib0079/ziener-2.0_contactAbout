@@ -84,7 +84,7 @@
                     <h2 class="tw-imp-title">{{ block.settings.imp_title }}</h2>
                   {% endif %}
                   {% if block.settings.imp_text != blank %}
-                    <div class="tw-imp-text">{{ block.settings.imp_text }}</div>
+                    <div class="tw-imp-text">{{ block.settings.imp_text | newline_to_br }}</div>
                   {% endif %}
                   {% if block.settings.imp_subtitle != blank %}
                     <h3 class="tw-imp-subtitle">{{ block.settings.imp_subtitle }}</h3>
